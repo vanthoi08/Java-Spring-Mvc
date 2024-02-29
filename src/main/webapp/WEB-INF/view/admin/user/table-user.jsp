@@ -42,8 +42,10 @@
                                             <td>
                                                 <a href="/admin/user/${user.id}"><button
                                                         class="btn btn-success">View</button></a>
-                                                <a><button class="btn btn-warning mx-2">Update</button></a>
-                                                <a><button class="btn btn-danger">Delete</button></a>
+                                                <a href="/admin/user/update/${user.id}"><button
+                                                        class="btn btn-warning mx-2">Update</button></a>
+                                                <a href="/admin/user/delete/${user.id}"><button
+                                                        class="btn btn-danger">Delete</button></a>
                                             </td>
                                         </tr>
                                     </c:forEach>
