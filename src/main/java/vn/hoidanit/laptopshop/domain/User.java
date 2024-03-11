@@ -16,6 +16,10 @@ public class User {
     private String address;
     private String phone;
 
+    private String avatar;
+
+    // roleId
+
     public long getId() {
         return id;
     }
@@ -64,10 +68,13 @@ public class User {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
-                + ", address=" + address + ", phone=" + phone + "]";
+    public String getAvatar() {
+        return avatar;
     }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
 
 }
