@@ -43,7 +43,7 @@
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
                                             <form:form method="post" action="/admin/user/create"
-                                                modelAttribute="newUser" class="row g-2">
+                                                modelAttribute="newUser" class="row g-2" enctype="multipart/form-data">
                                                 <h3>Create a user</h3>
                                                 <hr>
                                                 <div class="col-md-6  col-12">
@@ -74,17 +74,17 @@
                                                 </div>
                                                 <div class="col-md-6  col-12">
                                                     <label for="inputRole" class="form-label">Role:</label>
-                                                    <select id="inputRole" class="form-select">
-                                                        <option value="ADMIN">Admin</option>
-                                                        <option value="USER">User</option>
-                                                    </select>
+                                                    <form:select id="inputRole" class="form-select" path="role.name">
+                                                        <form:option value="ADMIN">Admin</form:option>
+                                                        <form:option value="USER">User</form:option>
+                                                    </form:select>
                                                 </div>
 
                                                 <div class="col-md-6  col-12">
                                                     <label for="avatarFile" class="form-label">Avatar:
                                                     </label>
                                                     <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jpeg">
+                                                        accept=".png, .jpg, .jpeg" name="hoidanitFile" />
                                                 </div>
                                                 <div class="col-12 ">
                                                     <img style="max-height: 250px; display: none;" alt="avatar preview"
