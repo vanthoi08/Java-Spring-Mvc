@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +22,9 @@ public class Product {
     private long sold; // số lượng đã bán
     private String factory;
     private String target; // mục đích sử dụng
+
+    @ManyToOne
+    private OrderDetail orderDetail;
 
     public long getId() {
         return id;
