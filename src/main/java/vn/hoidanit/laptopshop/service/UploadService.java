@@ -35,6 +35,8 @@ public class UploadService {
 
             // Create the file on server
             finalName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+
+            // lưu tên băng ID search uuid
             File serverFile = new File(dir.getAbsolutePath() + File.separator + finalName);
 
             BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
