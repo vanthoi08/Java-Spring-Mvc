@@ -92,6 +92,8 @@
                                                 </div>
                                                 <div class="col-12 mt-5">
                                                     <button type="submit" class="btn btn-primary">Create</button>
+                                                    <a href="/admin/user"><button type="button"
+                                                            class="btn btn-secondary mx-3">Cancel</button></a>
                                                 </div>
 
                                             </form:form>
