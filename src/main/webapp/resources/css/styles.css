@@ -3968,6 +3968,7 @@ textarea.form-control-lg {
   }
 }
 @media (min-width: 992px) {
+ }
   .navbar-expand-lg {
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -4013,8 +4014,10 @@ textarea.form-control-lg {
     padding: 0;
     overflow-y: visible;
   }
-}
-@media (min-width: 1200px) {
+
+
+
+@media (min-width: 1200px) {  
   .navbar-expand-xl {
     flex-wrap: nowrap;
     justify-content: flex-start;
