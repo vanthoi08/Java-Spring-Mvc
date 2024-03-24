@@ -73,8 +73,16 @@ public class UserController {
 
     @PostMapping("/admin/user/update")
     public String postUpdateUser(Model model,
-            @ModelAttribute("newUser") User hoidanit,
+            @ModelAttribute("newUser") @Valid User hoidanit, BindingResult newUserBindingResult,
             @RequestParam("hoidanitFile") MultipartFile file) {
+
+        // Validate only fullName property
+        if (newUserBindingResult.hasFieldErrors("fullName")) {
+            model.addAttribute("currentUser", this.userService.getUserById(hoidanit.getId()));
+            return "admin/user/update";
+
+        }
+
         User currentUser = this.userService.getUserById(hoidanit.getId());
         if (currentUser != null) {
             currentUser.setAddress(hoidanit.getAddress());
@@ -83,8 +91,11 @@ public class UserController {
 
             currentUser.setRole(this.userService.getRoleByName(hoidanit.getRole().getName()));
 
-            String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
-            currentUser.setAvatar(avatar);
+            // update new image
+            if (!file.isEmpty()) {
+                String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
+                currentUser.setAvatar(avatar);
+            }
 
             this.userService.handleSaveUser(currentUser);
         }

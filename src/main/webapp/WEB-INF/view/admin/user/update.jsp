@@ -11,7 +11,7 @@
                     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                     <meta name="description" content="" />
                     <meta name="author" content="" />
-                    <title>Create User - Hoi Dân IT</title>
+                    <title>Update User - Hoi Dân IT</title>
                     <link href="/css/styles.css" rel="stylesheet" />
                     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
                         crossorigin="anonymous"></script>
@@ -20,6 +20,13 @@
                 <script>
                     $(document).ready(() => {
                         const avatarFile = $("#avatarFile");
+                        const orgImage = "${newUser.avatar}";
+                        if (orgImage) {
+                            const urlImage = "/images/avatar/" + orgImage;
+                            $("#avatarPreview").attr("src", urlImage);
+                            $("#avatarPreview").css({ "display": "block" });
+                        }
+
                         avatarFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
                             $("#avatarPreview").attr("src", imgURL);
@@ -39,12 +46,18 @@
                                     <ol class="breadcrumb mb-4">
                                         <li class="breadcrumb-item active"><a href="/admin">Dashboard</a></li>
                                         <li class="breadcrumb-item active">Users</li>
+                                        <li class="breadcrumb-item active">Update</li>
                                     </ol>
                                     <div class="mt-5">
                                         <div class="row">
                                             <div class="col-md-6 col-12 mx-auto">
                                                 <form:form method="post" action="/admin/user/update"
                                                     modelAttribute="newUser" enctype="multipart/form-data">
+                                                    <!-- validate cột full name -->
+                                                    <c:set var="errorFullName">
+                                                        <form:errors path="fullName" cssClass="invalid-feedback" />
+                                                    </c:set>
+
                                                     <h3>Update a user</h3>
                                                     <hr>
                                                     <div class="mb-3">
@@ -65,8 +78,10 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="fullName" class="form-label">Full name:</label>
-                                                        <form:input type="text" class="form-control" id="fullName"
-                                                            path="fullName" />
+                                                        <form:input type="text"
+                                                            class="form-control ${not empty errorFullName ? 'is-invalid' : ''}"
+                                                            id="fullName" path="fullName" />
+                                                        ${errorFullName}
                                                     </div>
 
 
