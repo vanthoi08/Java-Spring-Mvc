@@ -21,6 +21,10 @@ public class UploadService {
     }
 
     public String handleSaveUploadFile(MultipartFile file, String targetFolder) {
+        // dont't upload file
+        if (file.isEmpty())
+            return "";
+
         // relative path : absolute path
         // String a = this.servletContext.getRealPath("");
 
