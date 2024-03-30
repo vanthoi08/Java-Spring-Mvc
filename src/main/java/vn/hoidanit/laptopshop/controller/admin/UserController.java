@@ -41,7 +41,7 @@ public class UserController {
         List<User> arrUsers = this.userService.getAllUsersByEmail("nv3@gamil.com");
         System.out.println(arrUsers);
 
-        return "/admin/user/user";
+        return "admin/user/user";
     }
 
     @GetMapping("/admin/user")
