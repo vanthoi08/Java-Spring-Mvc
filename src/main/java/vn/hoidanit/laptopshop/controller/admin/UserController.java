@@ -44,13 +44,12 @@ public class UserController {
         return "/admin/user/user";
     }
 
-    @RequestMapping("/admin/user")
+    @GetMapping("/admin/user")
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
         System.out.println(" >>> check users" + users);
         model.addAttribute("users1", users);
-
-        return "/admin/user/show";
+        return "admin/user/show";
     }
 
     @RequestMapping("/admin/user/{id}")
