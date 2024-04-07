@@ -50,7 +50,6 @@ public class ProductService {
     }
 
     public void handleAddProductToCart(String email, long productId, HttpSession session) {
-
         User user = this.userService.getUserByEmail(email);
         if (user != null) {
             // Check user đã có cart chưa ? nếu chưa => tạo mới
@@ -94,5 +93,9 @@ public class ProductService {
             }
 
         }
+    }
+
+    public Cart fetchByUser(User user){
+        return this.cartRepository.findByUser(user);
     }
 }
