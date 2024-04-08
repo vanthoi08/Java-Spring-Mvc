@@ -79,7 +79,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 <th scope="col">Xử lý</th>
               </tr>
             </thead>
-            <c:forEach var="cartDetail" items="${cartDetails}">
+            <c:forEach
+              var="cartDetail"
+              items="${cartDetails}"
+              varStatus="status"
+            >
               <tbody>
                 <tr>
                   <th scope="row">
@@ -126,6 +130,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         value="${cartDetail.quantity}"
                         data-cart-detail-id="${cartDetail.id}"
                         data-cart-detail-price="${cartDetail.price}"
+                        data-cart-detail-index="${status.index}"
+                        
                       />
                       <div class="input-group-btn">
                         <button
@@ -145,18 +151,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     </p>
                   </td>
                   <td>
-                    <form
-                      method="post"
-                      action="/delete-cart-product/${cartDetail.id}"
-                    >
+                    <form method="post" action="/delete-cart-product/${cartDetail.id}">
                       <input
                         type="hidden"
                         name="${_csrf.parameterName}"
                         value="${_csrf.token}"
                       />
-                      <button
-                        class="btn btn-md rounded-circle bg-light border mt-4"
-                      >
+                      <button class="btn btn-md rounded-circle bg-light border mt-4">
+                      
                         <i class="fa fa-times text-danger"></i>
                       </button>
                     </form>
@@ -166,8 +168,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             </c:forEach>
           </table>
         </div>
-        <c:if test="${empty cartDetails}">
-          Không có sản phẩm trong giỏ hàng
+        <c:if test="${ empty cartDetails}">
+          <tr>
+            <td colspan="6">Không có sản phẩm trong giỏ hàng</td>
+          </tr>
         </c:if>
         <c:if test="${not empty cartDetails}">
           <div class="mt-5 row g-4 justify-content-start">
@@ -198,12 +202,33 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <fmt:formatNumber type="number" value="${totalPrice}" /> đ
                   </p>
                 </div>
-                <button
-                  class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-                  type="button"
-                >
-                  Xác nhận đơn hàng
-                </button>
+                <form:form action="/confirm-checkout" method="post" modelAttribute="cart">
+                  <input type="hidden"name="${_csrf.parameterName}"value="${_csrf.token}"/>
+                  <div style="display: block">
+                    <c:forEach var="cartDetail" items="${cart.cartDetails}" varStatus="status">
+                      <div class="mb-3">
+                        <div class="form-group">
+                          <label>Id:</label>
+                          <form:input
+                            class="form-control"
+                            type="text"
+                            value="${cartDetail.id}"
+                            path="cartDetails[${status.index}].id"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label>Quantity:</label>
+                          <form:input class="form-control" type="text" value="${cartDetail.quantity}"  path="cartDetails[${status.index}].quantity" />
+                        </div>
+                      </div>
+                    </c:forEach>
+                  </div>
+                  <button
+                    class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                  >
+                    Xác nhận thanh toán
+                  </button>
+                </form:form>
               </div>
             </div>
           </div>
