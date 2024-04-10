@@ -29,7 +29,7 @@ public class Order {
     private String status;
     
 
-    // user id
+
 
     public String getReceiverName() {
         return receiverName;
@@ -63,6 +63,7 @@ public class Order {
         this.status = status;
     }
 
+    // user id
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -84,6 +85,24 @@ public class Order {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     @Override
