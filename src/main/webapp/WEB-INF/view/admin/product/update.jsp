@@ -96,7 +96,7 @@
                                                 <div class="col-md-6  col-12">
                                                     <label for="price" class="form-label">Price:</label>
                                                      <!-- Định dạng giá trị price bằng JSTL fmt  -->
-                                         <fmt:formatNumber var="formattedPrice" value="${newProduct.price}"/>
+                                             <fmt:formatNumber var="formattedPrice" value="${newProduct.price}"/>
                                                     <form:input type="number"
                                                         class="form-control ${not empty errorName ? 'is-invalid' : ''}"
                                                         id="price" path="price" 
