@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <!DOCTYPE html>
             <html lang="en">
 
@@ -10,7 +11,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="" />
                 <meta name="author" content="" />
-                <title>Update Product - Hoi Dân IT</title>
+                <title>Update Product</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -50,7 +51,7 @@
                                 <div class="mt-3">
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
-                                            <form:form method="post" action="/admin/product/create"
+                                            <form:form method="post" action="/admin/product/update"
                                                 modelAttribute="newProduct" class="row g-2"
                                                 enctype="multipart/form-data">
                                                 <!-- khai báo biến -->
@@ -75,7 +76,7 @@
                                                 </c:set>
 
 
-                                                <h3>Create a product</h3>
+                                                <h3>Update  product</h3>
                                                 <hr>
                                                 <div class="col-md-6  col-12">
 
@@ -90,15 +91,17 @@
                                                     <label for="price" class="form-label">Price:</label>
                                                     <form:input type="number"
                                                         class="form-control ${not empty errorName ? 'is-invalid' : ''}"
-                                                        id="price" path="price" />
+                                                        id="price" path="price" 
+                                                      
+                                                        />
                                                     ${errorPrice}
                                                 </div>
-                                                <div class=" col-12">
+                                                <div class="col-12">
 
                                                     <label for="detailDesc"
                                                         class="form-label  ${not empty errordetailDesc ? 'is-invalid' : ''}">
                                                         Detail description:</label>
-                                                    <form:textarea rows="3" cols="63" id="detailDesc"
+                                                    <form:textarea rows="3" cols="86" id="detailDesc"
                                                         path="detailDesc" />
                                                     ${errordetailDesc}
                                                 </div>

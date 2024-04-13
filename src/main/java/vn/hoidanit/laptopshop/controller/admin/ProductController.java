@@ -90,16 +90,16 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product/update/{id}")
-    public String getUpdateUserPage(Model model, @PathVariable long id) {
-        Optional<Product> curentProduct = this.productService.fetchProductById(id);
+    public String getUpdateProductPage(Model model, @PathVariable long id) {
+        Optional<Product> currentProduct = this.productService.fetchProductById(id);
 
-        model.addAttribute("newProduct", curentProduct.get());
+        model.addAttribute("newProduct", currentProduct.get());
 
         return "admin/product/update";
     }
 
     @PostMapping("/admin/product/update")
-    public String handleUpdateproduct(Model model,
+    public String handleUpdateProduct(Model model,
             @ModelAttribute("newProduct") @Valid Product pr, BindingResult newProductBindingResult,
             @RequestParam("hoidanitFile") MultipartFile file) {
 
@@ -107,27 +107,30 @@ public class ProductController {
         if (newProductBindingResult.hasErrors()) {
             return "admin/product/update";
         }
-        Product curentProduct = this.productService.fetchProductById(pr.getId()).get();
+        // Product currentProduct = this.productService.fetchProductById(pr.getId()).get();
+        Optional<Product> optionalProduct = this.productService.fetchProductById(pr.getId());
 
-        if (curentProduct != null) {
-
+        if (optionalProduct.isPresent()) {
+            Product currentProduct = optionalProduct.get();
             // update new image
             if (!file.isEmpty()) {
                 String img = this.uploadService.handleSaveUploadFile(file, "product");
-                curentProduct.setImage(img);
+                currentProduct.setImage(img);
             }
-            curentProduct.setName(pr.getName());
-            curentProduct.setPrice(pr.getPrice());
-            curentProduct.setQuantity(pr.getQuantity());
-            curentProduct.setDetailDesc(pr.getDetailDesc());
-            curentProduct.setShortDesc(pr.getShortDesc());
-            curentProduct.setFactory(pr.getFactory());
-            curentProduct.setTarget(pr.getTarget());
+            currentProduct.setName(pr.getName());
+            currentProduct.setPrice(pr.getPrice());
+            currentProduct.setQuantity(pr.getQuantity());
+            currentProduct.setDetailDesc(pr.getDetailDesc());
+            currentProduct.setShortDesc(pr.getShortDesc());
+            currentProduct.setFactory(pr.getFactory());
+            currentProduct.setTarget(pr.getTarget());
 
-            this.productService.createProduct(curentProduct);
+            this.productService.createProduct(currentProduct);
 
         }
         return "redirect:/admin/product";
     }
+
+    
 
 }

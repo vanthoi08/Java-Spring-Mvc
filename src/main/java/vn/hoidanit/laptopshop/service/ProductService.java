@@ -55,6 +55,7 @@ public class ProductService {
     public Optional<Product> fetchProductById(long id) {
         return this.productRepository.findById(id);
     }
+  
 
     public void deleteProduct(long id) {
         this.productRepository.deleteById(id);
@@ -150,29 +151,38 @@ public class ProductService {
         User user,  HttpSession session,
         String receiverName, String receiverAddress, String receiverPhone){
 
-            // Create order
-            Order order = new Order();
-            order.setUser(user);
-            order.setReceiverName(receiverName);
-            order.setReceiverAddress(receiverAddress);
-            order.setReceiverPhone(receiverPhone);
 
-           // hứng order 
-          order =  this.orderRepository.save(order);
-
-          // create orderDetail
 
           // Step 1: get cart by user
           Cart cart = this.cartRepository.findByUser(user);
           if(cart != null){
             List<CartDetail> cartDetails = cart.getCartDetails();
             if(cartDetails != null){
+                // create order
+                Order order = new Order();
+                order.setUser(user);
+                order.setReceiverName(receiverName);
+                order.setReceiverAddress(receiverAddress);
+                order.setReceiverPhone(receiverPhone);
+                order.setStatus("PENDING");
+
+                double sum = 0;
+                for(CartDetail cd: cartDetails){
+                    sum += cd.getPrice()*cd.getQuantity();
+                }
+                order.setTotalPrice(sum);
+                 // hứng order 
+                 order =  this.orderRepository.save(order);
+
+
+                // create orderDetail
                 for(CartDetail cd:cartDetails){
                     OrderDetail  orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
                     orderDetail.setProduct(cd.getProduct());
                     orderDetail.setPrice(cd.getPrice());
                     orderDetail.setQuantity(cd.getQuantity());
+
                     this.orderDetailRepository.save(orderDetail);
                 }
 

@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <!DOCTYPE html>
         <html lang="en">
 
@@ -26,7 +27,53 @@
                                 <li class="breadcrumb-item active"> <a href="/admin">Dashboard</a></li>
                                 <li class="breadcrumb-item active"> Orders</li>
                             </ol>
-                            <div>table order</div>
+                            <div>
+                                <c:if test="${ empty orders}">
+                                    <tr>
+                                        <td colspan="6">
+                                            <div class="alert alert-danger" role="alert">
+                                                Không có sản phẩm trong giỏ hàng
+                                              </div>
+                                            
+                                        </td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${not empty orders}">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Total Price</th>
+                                            <th scope="col">User</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach var="order" items="${orders}">
+                                            <tr>
+                                                <th scope="row">${order.id}</th>
+                                                <td>
+                                                    <fmt:formatNumber type="number"
+                                                    value="${order.totalPrice}" /> đ
+                                                </td>
+                                                <td>${order.user.fullName}</td>
+                                                <td>${order.status}</td>
+                                                <td>
+                                                    <a href="/admin/order/${order.id}"><button
+                                                            class="btn btn-success">View</button></a>
+                                                    <a href="/admin/order/update/${order.id}"><button
+                                                            class="btn btn-warning mx-2">Update</button></a>
+                                                    <a href="/admin/order/delete/${order.id}"><button
+                                                            class="btn btn-danger">Delete</button></a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                              
+                                    </tbody>
+                                </table>
+                            </c:if>
+                            </div>
                         </div>
                     </main>
 
