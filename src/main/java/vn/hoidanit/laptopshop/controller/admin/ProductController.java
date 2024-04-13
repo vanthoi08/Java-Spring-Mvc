@@ -118,7 +118,8 @@ public class ProductController {
                 currentProduct.setImage(img);
             }
             currentProduct.setName(pr.getName());
-            currentProduct.setPrice(pr.getPrice());
+             currentProduct.setPrice(pr.getPrice());
+           
             currentProduct.setQuantity(pr.getQuantity());
             currentProduct.setDetailDesc(pr.getDetailDesc());
             currentProduct.setShortDesc(pr.getShortDesc());

@@ -78,6 +78,13 @@
 
                                                 <h3>Update  product</h3>
                                                 <hr>
+                                                <div class="mb-3" style="display: none;">
+                                                    <label for="name" class="form-label">Id:</label>
+                                                    <form:input type="text"
+                                                        class="form-control"
+                                                         path="id" />
+                                                </div>
+
                                                 <div class="col-md-6  col-12">
 
                                                     <label for="name" class="form-label">Name:</label>
@@ -87,14 +94,16 @@
                                                     ${errorName}
                                                 </div>
                                                 <div class="col-md-6  col-12">
-
                                                     <label for="price" class="form-label">Price:</label>
+                                                     <!-- Định dạng giá trị price bằng JSTL fmt  -->
+                                         <fmt:formatNumber var="formattedPrice" value="${newProduct.price}"/>
                                                     <form:input type="number"
                                                         class="form-control ${not empty errorName ? 'is-invalid' : ''}"
                                                         id="price" path="price" 
-                                                      
-                                                        />
+                                                      value="${formattedPrice}" />
                                                     ${errorPrice}
+                                                    <!-- test in ra màn hình -->
+                                                    ${formattedPrice}
                                                 </div>
                                                 <div class="col-12">
 
