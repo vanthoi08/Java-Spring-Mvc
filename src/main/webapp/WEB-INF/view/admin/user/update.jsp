@@ -128,7 +128,7 @@
                                                             <c:otherwise>
                                                                 <img style="max-height: 250px; display: block;"
                                                                     alt="avatar preview" id="avatarPreview"
-                                                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-YIGV8GTRHiW_KACLMhhi9fEq2T5BDQcEyA&usqp=CAU" />
+                                                                    src="images/avatar/${newUser.avatar}" />
 
                                                             </c:otherwise>
                                                         </c:choose>
