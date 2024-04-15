@@ -37,13 +37,16 @@ public class ProductController {
         // client page = 1 . limit = 10
         // dưới db có 100 rows .count =100 => limit = 10 pages
         // database: offset + limit
-        Pageable pageable = PageRequest.of(page-1, 4);
+        Pageable pageable = PageRequest.of(page-1, 2);
 
         Page<Product> products = this.productService.fetchProducts(pageable);
         //convet Page => List truyền xuống view
         List<Product> listProducts = products.getContent();
         
         model.addAttribute("products", listProducts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", products.getTotalPages());
+
         return "admin/product/show";
     }
 
