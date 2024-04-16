@@ -33,10 +33,22 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product")
-    public String getProduct(Model model,@RequestParam("page") int page) {
+    public String getProduct(Model model,@RequestParam("page") Optional<String> pageOptional) {
         // client page = 1 . limit = 10
         // dưới db có 100 rows .count =100 => limit = 10 pages
         // database: offset + limit
+        int page = 1;
+        try {
+            if(pageOptional.isPresent()){
+                // convert String to int
+                page = Integer.parseInt(pageOptional.get());
+            } else{
+                // page = 1
+            }
+        } catch (Exception e) {
+            // page = 1
+            // TODO: handle exception
+        }
         Pageable pageable = PageRequest.of(page-1, 2);
 
         Page<Product> products = this.productService.fetchProducts(pageable);
@@ -69,7 +81,7 @@ public class ProductController {
         // Validate
         if (newProductBindingResult.hasErrors()) {
 
-            return "/admin/product/create";
+            return "admin/product/create";
         }
 
         String productImg = this.uploadService.handleSaveUploadFile(file, "product");

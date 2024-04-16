@@ -90,7 +90,7 @@
                                                     <label for="detailDesc"
                                                         class="form-label  ${not empty errordetailDesc ? 'is-invalid' : ''}">
                                                         Detail description:</label>
-                                                    <form:textarea rows="3" cols="63" id="detailDesc"
+                                                    <form:textarea rows="3" cols="105" id="detailDesc"
                                                         path="detailDesc" />
                                                     ${errordetailDesc}
                                                 </div>

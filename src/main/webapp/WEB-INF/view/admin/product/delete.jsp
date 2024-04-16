@@ -34,6 +34,7 @@
                                     <form:input value="${id}" type="text" class="form-control" id="id" path="id" />
                                 </div>
                                 <button class="btn btn-danger">Confirm</button>
+                                <a href="/admin/product" class="btn btn-primary">Cancel</a>
                             </form:form>
                         </div>
 
