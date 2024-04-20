@@ -57,7 +57,7 @@ public class UserController {
                 // convert String to int
                 page = Integer.parseInt(pageOptional.get());
             } else{
-                // page = 1;
+                //  page = 1;
             }
         } catch (Exception e) {
              // page = 1;
@@ -173,5 +173,5 @@ public class UserController {
         this.userService.handleSaveUser(hoidanit);
         return "redirect:/admin/user";
     }
-// test master
+
 }
