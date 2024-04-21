@@ -1,6 +1,7 @@
 package vn.hoidanit.laptopshop.controller.client;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -159,7 +160,11 @@ public class ItemController {
     @GetMapping("/products")
     public String getProductPage(Model model, 
     @RequestParam("page") Optional<String> pageOptional,
-    @RequestParam("name") Optional<String> nameOptional) {
+    @RequestParam("name") Optional<String> nameOptional,
+    @RequestParam("min-price") Optional<String> minOptional,
+    @RequestParam("max-price") Optional<String> maxOptional,
+    @RequestParam("factory") Optional<String> factoryOptional,
+    @RequestParam("price") Optional<String> priceOptional) {
         int page = 1;
         try {
             if(pageOptional.isPresent()){
@@ -181,11 +186,41 @@ public class ItemController {
         
         
         
-        Pageable pageable = PageRequest.of(page-1, 3);
+        Pageable pageable = PageRequest.of(page-1, 60);
       
-        String name = nameOptional.isPresent() ? nameOptional.get() : "";
+        // String name = nameOptional.isPresent() ? nameOptional.get() : "";
 
-        Page<Product> products = this.productService.fetchProductsWithSpec(pageable, name);
+        // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,name);
+
+        // Case 1: 
+            // double min = minOptional.isPresent() ? Double.parseDouble(minOptional.get()) : 0;
+
+            // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,min);
+
+        // Case 2: 
+            // double max = maxOptional.isPresent() ? Double.parseDouble(maxOptional.get()) : 0;
+
+            // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,max);
+
+        // Case 3:
+
+            // String factory= factoryOptional.isPresent() ? factoryOptional.get() : "";
+            // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,factory);
+
+        // Case 4:
+
+        // List<String> factory = Arrays.asList(factoryOptional.get().split(","));
+        // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,factory);
+
+        // Case 5:
+        
+            String price= priceOptional.isPresent() ? priceOptional.get() : "";
+            Page<Product> products = this.productService.fetchProductsWithSpec(pageable,price);
+
+
+
+
+
         // convert Page => List
         List<Product> listProducts = products.getContent();
 
