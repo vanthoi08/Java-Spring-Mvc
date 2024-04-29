@@ -82,7 +82,7 @@ public class ProductService {
 
         }
 
-        return this.productRepository.findAll( combinedSpec, page);
+        return this.productRepository.findAll(combinedSpec, page);
     }
 
     // Case 1: 
@@ -123,17 +123,18 @@ public class ProductService {
 // Case 6:
 public Specification<Product> buildPriceSpecification(List<String> price) {
     // Khởi tạo combinedSpec để tránh lần đầu tiên giá trị = null
-  Specification<Product> combinedSpec = (root, query, criteriaBuilder) -> criteriaBuilder.disjunction();
-  for(String p:price){
+//   Specification<Product> combinedSpec = (root, query, criteriaBuilder) -> criteriaBuilder.disjunction();
+  Specification<Product> combinedSpec = Specification.where(null); // disjunction()
+  for(String p:price){  
     double min = 0;
     double max = 0;
 
     // Set các case
     switch (p) {
         case "duoi-10-trieu":
-        min = 0;
-        max = 10000000;
-        break;
+            min = 0;
+            max = 10000000;
+            break;
 
         case "10-15-trieu":
             min = 10000000;

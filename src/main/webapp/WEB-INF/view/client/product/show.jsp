@@ -247,7 +247,7 @@
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <li class="page-item">
-                                                                    <a class="page-link" href="/products?page=${currentPage - 1}" aria-label="Previous">
+                                                                    <a class="page-link" href="/products?page=${currentPage - 1}${queryString}" aria-label="Previous">
                                                                         <span aria-hidden="true">&laquo;</span>
                                                                     </a>
                                                                 </li>
@@ -264,7 +264,7 @@
                                                 <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
                                                 <li class="page-item">
                                                     <a class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
-                                                        href="/products?page=${loop.index + 1}">
+                                                        href="/products?page=${loop.index + 1}${queryString}">
                                                         ${loop.index + 1}
                                                     </a>
                                                 </li>
@@ -287,7 +287,7 @@
                                                     </c:when>
                                                     <c:otherwise>
                                                         <li class="page-item">
-                                                            <a class="page-link" href="/products?page=${currentPage + 1}" aria-label="Next">
+                                                            <a class="page-link" href="/products?page=${currentPage + 1}${queryString}" aria-label="Next">
                                                                 <span aria-hidden="true">&raquo;</span>
                                                             </a>
                                                         </li>
