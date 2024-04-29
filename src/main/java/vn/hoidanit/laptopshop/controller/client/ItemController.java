@@ -191,46 +191,11 @@ public class ItemController {
         
         Pageable pageable = PageRequest.of(page-1, 60);
 
-        Page<Product> products = this.productService.fetchProducts(pageable);
+        Page<Product> products = this.productService.fetchProductsWithSpec(pageable,productCriteriaDTO);
       
-        // String name = nameOptional.isPresent() ? nameOptional.get() : "";
-
-        // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,name);
-
-        // Case 1: 
-            // double min = minOptional.isPresent() ? Double.parseDouble(minOptional.get()) : 0;
-
-            // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,min);
-
-        // Case 2: 
-            // double max = maxOptional.isPresent() ? Double.parseDouble(maxOptional.get()) : 0;
-
-            // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,max);
-
-        // Case 3:
-
-            // String factory= factoryOptional.isPresent() ? factoryOptional.get() : "";
-            // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,factory);
-
-        // Case 4:
-
-        // List<String> factory = Arrays.asList(factoryOptional.get().split(","));
-        // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,factory);
-
-        // Case 5:
-        
-            // String price= priceOptional.isPresent() ? priceOptional.get() : "";
-            // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,price);
-
-    // Case 6:
-
-        // List<String> price = Arrays.asList(priceOptional.get().split(","));
-        // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,price);
-
-
 
         // convert Page => List
-        List<Product> listProducts = products.getContent();
+        List<Product> listProducts = products.getContent().size()>0 ? products.getContent(): new ArrayList<Product>();
 
         model.addAttribute("products", listProducts);
         model.addAttribute("currentPage", page);

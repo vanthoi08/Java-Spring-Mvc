@@ -41,6 +41,13 @@ public static Specification<Product> matchListFactory(List<String> factory) {
     -> criteriaBuilder.in(root.get(Product_.FACTORY)).value(factory);
 }
 
+// Case 4:
+
+public static Specification<Product> matchListTarget(List<String> target) {
+    return (root, query, criteriaBuilder) 
+    -> criteriaBuilder.in(root.get(Product_.TARGET)).value(target);
+}
+
 // Case 5:
 public static Specification<Product> matchPrice(double min, double max) {
     return (root, query, criteriaBuilder) 
