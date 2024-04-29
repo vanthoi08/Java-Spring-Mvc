@@ -50,5 +50,11 @@ public static Specification<Product> matchPrice(double min, double max) {
     );
 }
 
+// Case 6:
+public static Specification<Product> matchMultiplePrice(double min, double max) {
+    return (root, query, criteriaBuilder) 
+    -> criteriaBuilder.between(root.get(Product_.PRICE),min,max);
+}
+
 
 }

@@ -214,10 +214,13 @@ public class ItemController {
 
         // Case 5:
         
-            String price= priceOptional.isPresent() ? priceOptional.get() : "";
-            Page<Product> products = this.productService.fetchProductsWithSpec(pageable,price);
+            // String price= priceOptional.isPresent() ? priceOptional.get() : "";
+            // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,price);
 
+    // Case 6:
 
+        List<String> price = Arrays.asList(priceOptional.get().split(","));
+        Page<Product> products = this.productService.fetchProductsWithSpec(pageable,price);
 
 
 
