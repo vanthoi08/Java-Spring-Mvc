@@ -18,6 +18,7 @@ import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.domain.dto.ProductCriteriaDTO;
 import vn.hoidanit.laptopshop.service.ProductService;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -148,7 +149,13 @@ public class ItemController {
 
     @PostMapping("/add-product-from-view-detail")
     public String handleAddProductFromViewDetail(@RequestParam("id") long id,
-    @RequestParam("quantity") long quantity, HttpServletRequest request) {
+    @RequestParam("quantity") Optional<String> quantityOptional , HttpServletRequest request) {
+        
+        long quantity = 1;
+        if(quantityOptional.isPresent()){
+            quantity = Long.parseLong(quantityOptional.get());
+        }
+
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
 
@@ -159,21 +166,13 @@ public class ItemController {
     // products
     @GetMapping("/products")
     public String getProductPage(Model model, 
-    @RequestParam("page") Optional<String> pageOptional,
-    @RequestParam("name") Optional<String> nameOptional,
-    
-    // @RequestParam("min-price") Optional<String> minOptional,
-    // @RequestParam("max-price") Optional<String> maxOptional,
-    @RequestParam("factory") Optional<String> factoryOptional,
-    @RequestParam("price") Optional<String> priceOptional,
-    @RequestParam("target") Optional<String> targetOptional,
-    @RequestParam("sort") Optional<String> sortOptional
+    ProductCriteriaDTO  productCriteriaDTO
     ) {
         int page = 1;
         try {
-            if(pageOptional.isPresent()){
+            if(productCriteriaDTO.getPage().isPresent()){
                 // convert String to int
-                page = Integer.parseInt(pageOptional.get());
+                page = Integer.parseInt(productCriteriaDTO.getPage().get());
                 // cehceck exception if page = 0
                 if(page==0){
                     page = 1;
@@ -191,10 +190,12 @@ public class ItemController {
         
         
         Pageable pageable = PageRequest.of(page-1, 60);
-      
-        String name = nameOptional.isPresent() ? nameOptional.get() : "";
 
-        Page<Product> products = this.productService.fetchProductsWithSpec(pageable,name);
+        Page<Product> products = this.productService.fetchProducts(pageable);
+      
+        // String name = nameOptional.isPresent() ? nameOptional.get() : "";
+
+        // Page<Product> products = this.productService.fetchProductsWithSpec(pageable,name);
 
         // Case 1: 
             // double min = minOptional.isPresent() ? Double.parseDouble(minOptional.get()) : 0;
