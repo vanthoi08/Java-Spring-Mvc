@@ -132,7 +132,7 @@ public Specification<Product> buildPriceSpecification(List<String> price) {
     // Set các case
     switch (p) {
         case "duoi-10-trieu":
-            min = 0;
+            min = 1;
             max = 10000000;
             break;
 
